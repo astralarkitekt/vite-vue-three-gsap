@@ -41,7 +41,7 @@ export default class SceneController {
   init() {
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    this.renderer.setClearColor(0x000000, 1)
+    this.renderer.setClearColor(0x000000, 0)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -92,8 +92,15 @@ export default class SceneController {
   spawn() {
     console.log('adding objects to scene')
     // create a cube
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    const material = new THREE.MeshStandardMaterial({ color: 0x00ffff })
+    const geometry = new THREE.BoxGeometry(3, 3, 3)
+    const material = new THREE.MeshStandardMaterial({
+      color: 0xefefef,
+      roughness: 0.4,
+      metalness: 0.6,
+      map: new THREE.TextureLoader().load('/textures/albedo.png'),
+      normalMap: new THREE.TextureLoader().load('/textures/normal.png'),
+      roughnessMap: new THREE.TextureLoader().load('/textures/roughness.png')
+    })
     this.cube = new THREE.Mesh(geometry, material)
     this.scene.add(this.cube)
 
